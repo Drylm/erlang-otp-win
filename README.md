@@ -1,11 +1,5 @@
 # erlang-otp-win
 
-docker build -t gsx/otp:18.0 -f .\Dockerfile.18.0 .
-docker build -t gsx/otp:20.3 -f .\Dockerfile.20.3 .
-
-docker run --rm -ti gsx/otp:18.0 cmd
-docker run --rm -ti gsx/otp:20.3 cmd
-
 WindowsServerCore
 ---
 
@@ -35,3 +29,7 @@ docker build --rm -t gsx/otp-nano:20.3 -f .\nanoserver\Dockerfile.20.3 .\nanoser
 docker run --rm -ti gsx/otp-nano:18.0 cmd
 docker run --rm -ti gsx/otp-nano:20.3 cmd
 ```
+
+git filter-branch --commit-filter 'if [ "$GIT_AUTHOR_NAME" = "John" ];
+  then export GIT_AUTHOR_NAME="Bhaal22"; export GIT_AUTHOR_EMAIL=muller.john@gmail.com;
+  fi; git commit-tree "$@"'
