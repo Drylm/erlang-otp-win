@@ -15,5 +15,3 @@ RUN Invoke-WebRequest -Uri $env:erlang_download_url -OutFile erlang_install.exe 
     Start-Process -Wait -FilePath .\erlang_install.exe -ArgumentList /S, /D=$env:ERLANG_HOME ; \
     Remove-Item -Force erlang_install.exe
 
-FROM microsoft/nanoserver
-WORKDIR /

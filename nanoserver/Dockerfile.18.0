@@ -1,0 +1,12 @@
+FROM microsoft/nanoserver
+MAINTAINER Jonathan Muller <jmuller@gsx.com>
+
+ENV erlang_download_url="http://erlang.org/download/otp_win64_18.0.exe" \
+    ERLANG_HOME=c:\\erlang
+
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+
+# download and install erlang using silent install option, and remove installer when done
+RUN Invoke-WebRequest -Uri $env:erlang_download_url -OutFile erlang_install.exe ; \
+        Start-Process -Wait -FilePath .\erlang_install.exe -ArgumentList /S, /D=$env:ERLANG_HOME ; \
+        Remove-Item -Force erlang_install.exe
