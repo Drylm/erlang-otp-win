@@ -1,7 +1,7 @@
 FROM microsoft/windowsservercore:1709 as root
 LABEL maintainer="muller.john@gmail.com"
 
-ENV erlang_download_url="http://erlang.org/download/otp_win64_20.3.exe" \
+ENV erlang_download_url="http://erlang.org/download/otp_win64_18.0.exe" \
     ERLANG_HOME=c:\\erlang
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
@@ -15,9 +15,9 @@ RUN Invoke-WebRequest -Uri $env:erlang_download_url -OutFile erlang_install.exe 
 FROM microsoft/nanoserver:1709
 LABEL maintainer="muller.john@gmail.com"
 
-ENV HOMEDRIVE=c:\\ \
-    HOMEPATH=Users\\%USERNAME% \
-    ERLANG_HOME=c:\\erlang
+ENV ERLANG_HOME=c:\\erlang
+COPY --from=root c:\\erlang c:\\erlang
 
-COPY --from=root c:\\erlang c:\\erlang \
-COPY .erlang.cookie c:\windows\
+COPY --from=root C:\\windows\\system32\\msvcp100.dll C:\\windows\\system32
+COPY --from=root C:\\windows\\system32\\msvcr100.dll C:\\windows\\system32
+COPY --from=root C:\\windows\\system32\\vcomp100.dll C:\\windows\\system32
