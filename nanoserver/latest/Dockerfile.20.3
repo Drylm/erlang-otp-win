@@ -15,10 +15,11 @@ RUN Invoke-WebRequest -Uri $env:erlang_download_url -OutFile erlang_install.exe 
 FROM microsoft/nanoserver
 LABEL maintainer="muller.john@gmail.com"
 
-ENV ERLANG_HOME=c:\\erlang
-COPY --from=root c:\\erlang c:\\erlang
+ENV HOMEDRIVE=c:\\ \
+    HOMEPATH=Users\\%USERNAME% \
+    ERLANG_HOME=c:\\erlang
 
-COPY --from=root C:\\windows\\system32\\msvcp120.dll C:\\windows\\system32
-COPY --from=root C:\\windows\\system32\\msvcr120.dll C:\\windows\\system32
+COPY --from=root c:\\erlang c:\\erlang
+COPY .erlang.cookie c:\\windows
 
 
