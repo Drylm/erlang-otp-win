@@ -16,8 +16,10 @@ FROM microsoft/nanoserver:1709
 LABEL maintainer="muller.john@gmail.com"
 
 ENV HOMEDRIVE=c:\\ \
-    HOMEPATH=Users\\%USERNAME% \
+    HOMEPATH=Users\\ContainerUser \
     ERLANG_HOME=c:\\erlang
 
 COPY --from=root c:\\erlang c:\\erlang
 COPY .erlang.cookie c:\\windows
+
+RUN icacls c:\windows\.erlang.cookie /grant %USERNAME%:F

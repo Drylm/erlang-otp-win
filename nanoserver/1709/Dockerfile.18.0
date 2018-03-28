@@ -17,6 +17,9 @@ LABEL maintainer="muller.john@gmail.com"
 
 ENV ERLANG_HOME=c:\\erlang
 COPY --from=root c:\\erlang c:\\erlang
+COPY .erlang.cookie c:\\windows
+
+RUN icacls c:\windows\.erlang.cookie /grant %USERNAME%:F
 
 COPY --from=root C:\\windows\\system32\\msvcp100.dll C:\\windows\\system32
 COPY --from=root C:\\windows\\system32\\msvcr100.dll C:\\windows\\system32
